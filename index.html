@@ -1,0 +1,1227 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet"
+        />
+        <title>Vladimir Varbanov - Portfolio</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            html {
+                -webkit-text-size-adjust: 100%;
+            }
+
+            body {
+                margin: 0;
+                background: rgba(34, 31, 30, 1);
+                overflow-x: hidden;
+                width: 100%;
+            }
+
+            .container {
+                width: 100%;
+                min-height: 100vh;
+                position: relative;
+            }
+
+            .hero-section {
+                position: relative;
+                width: 100%;
+                padding: 80px 20px 120px;
+                overflow: hidden;
+            }
+
+            @media (max-width: 768px) {
+                .hero-section {
+                    padding: 60px 15px 100px;
+                }
+            }
+
+            .carousel-wrapper {
+                position: relative;
+                width: 100%;
+                max-width: 1512px;
+                margin: 0 auto;
+                min-height: 393px;
+                -webkit-mask-image: linear-gradient(
+90deg, transparent 0%, black 40%, black 80%, transparent);
+            }
+
+            @media (max-width: 768px) {
+                .carousel-wrapper {
+                    min-height: 250px;
+                    -webkit-mask-image: none;
+                }
+            }
+
+            .carousel-track {
+                display: flex;
+                gap: 100px;
+                transition: transform 0.5s ease;
+                align-items: flex-start;
+            }
+
+            @media (max-width: 768px) {
+                .carousel-track {
+                    gap: 40px;
+                }
+            }
+
+            .carousel-item {
+                flex: 0 0 500px;
+                width: 500px;
+                text-align: center;
+                opacity: 0.31;
+                filter: blur(12.5px);
+                transition: opacity 0.5s ease, filter 0.5s ease;
+                padding: 0 15px;
+            }
+
+            @media (max-width: 768px) {
+                .carousel-item {
+                    flex: 0 0 80vw;
+                    width: 80vw;
+                    padding: 0 10px;
+                }
+            }
+
+            .carousel-item.active {
+                opacity: 1;
+                filter: none;
+            }
+
+            .timeline-controls {
+                position: absolute;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                z-index: 3;
+            }
+
+            @media (max-width: 480px) {
+                .timeline-controls {
+                    gap: 8px;
+                    bottom: 10px;
+                }
+            }
+
+            .nav-button {
+                width: 44px;
+                height: 44px;
+                border-radius: 50%;
+                background: rgba(174, 101, 76, 1);
+                border: 2px solid rgba(174, 101, 76, 1);
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            @media (max-width: 480px) {
+                .nav-button {
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+
+            .nav-button:not(.disabled):active {
+                background: rgba(174, 100, 76, 0.644);
+            }
+
+            .nav-button::before {
+                content: '';
+                width: 8px;
+                height: 8px;
+                border-right: 2px solid rgba(34, 31, 30, 1);
+                border-bottom: 2px solid rgba(34, 31, 30, 1);
+                transition: all 0.3s ease;
+            }
+
+            .nav-button.prev::before {
+                transform: rotate(135deg);
+                margin-left: 3px;
+            }
+
+            .nav-button.next::before {
+                transform: rotate(-45deg);
+                margin-right: 3px;
+            }
+
+            .nav-button.disabled {
+                border-color: transparent !important;
+                background: rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-button.disabled::before {
+                border-right: 2px solid rgb(255, 255, 255);
+                border-bottom: 2px solid rgb(255, 255, 255);
+            }
+
+            .timeline-line {
+                height: 2px;
+                width: 200px;
+                background: rgba(255, 255, 255, 0.1);
+                position: relative;
+            }
+
+            @media (max-width: 480px) {
+                .timeline-line {
+                    width: 120px;
+                }
+            }
+
+            .timeline-dots {
+                display: flex;
+                gap: 8px;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                right: 0;
+                transform: translateY(-50%);
+                justify-content: space-around;
+                padding: 0 10px;
+            }
+
+            @media (max-width: 480px) {
+                .timeline-dots {
+                    gap: 5px;
+                    padding: 0 5px;
+                }
+            }
+
+            .timeline-dot {
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                cursor: pointer;
+                background: rgb(57 54 53);
+                border: 3px solid rgba(34, 31, 30, 1);
+                box-shadow: 0 0 0 2px rgb(57 54 53);
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            @media (max-width: 480px) {
+                .timeline-dot {
+                    width: 18px;
+                    height: 18px;
+                }
+            }
+
+            .timeline-dot.active {
+                cursor: default;
+                background: rgba(174, 101, 76, 1);
+                border: 3px solid rgba(34, 31, 30, 1);
+                box-shadow: 0 0 0 2px rgba(174, 101, 76, 1);
+            }
+
+            .timeline-dot:not(.active):active {
+                background: rgb(106 62 47);
+            }
+
+            .carousel-gradient-left,
+            .carousel-gradient-right {
+                position: absolute;
+                top: 94px;
+                height: 318px;
+                width: 259px;
+                pointer-events: none;
+                z-index: 2;
+            }
+
+            @media (max-width: 768px) {
+                .carousel-gradient-left,
+                .carousel-gradient-right {
+                    width: 80px;
+                }
+            }
+
+            .carousel-gradient-left {
+                left: 0;
+                background: linear-gradient(90deg, rgba(34, 31, 30, 1) 0%, rgba(34, 31, 30, 0) 100%);
+            }
+
+            .carousel-gradient-right {
+                right: 0;
+                background: linear-gradient(90deg, rgba(34, 31, 30, 0) 0%, rgba(34, 31, 30, 1) 100%);
+            }
+
+            .job-title {
+                font-family: Inter;
+                font-weight: 900;
+                font-size: clamp(18px, 5vw, 30.62px);
+                color: white;
+                margin-bottom: 10px;
+            }
+
+            .company {
+                font-family: Inter;
+                font-weight: 600;
+                font-size: clamp(13px, 3.5vw, 19.03px);
+                color: white;
+                margin-bottom: 8px;
+            }
+
+            .location {
+                font-family: Inter;
+                font-weight: 400;
+                font-size: clamp(13px, 3.5vw, 19.03px);
+                color: white;
+                margin-bottom: 15px;
+            }
+
+            .tech-stack {
+                font-family: Azeret Mono;
+                font-weight: 400;
+                font-size: clamp(11px, 3vw, 19.03px);
+                color: rgba(255, 255, 255, 0.26);
+                line-height: 1.5;
+            }
+
+            .tabs {
+                position: absolute;
+                top: 35px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                gap: 35px;
+                align-items: center;
+                z-index: 3;
+            }
+
+            @media (max-width: 480px) {
+                .tabs {
+                    gap: 18px;
+                    top: 15px;
+                }
+            }
+
+            .tab {
+                font-family: IBM Plex Mono;
+                font-weight: 700;
+                font-size: clamp(12px, 3.5vw, 19.03px);
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.11) 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                white-space: nowrap;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .tab.active {
+                background: white;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .tab-indicator {
+                width: 5px;
+                height: 26px;
+                background: rgba(174, 101, 76, 1);
+                border-radius: 49px;
+                transform: rotate(90deg);
+            }
+
+            @media (max-width: 480px) {
+                .tab-indicator {
+                    height: 18px;
+                }
+            }
+
+            .logo {
+                position: absolute;
+                top: 19px;
+                left: 24px;
+                font-family: IBM Plex Mono;
+                font-weight: 700;
+                font-size: clamp(11px, 2.5vw, 14.64px);
+                color: rgba(174, 101, 76, 1);
+                z-index: 10;
+            }
+
+            .profile-section {
+                position: relative;
+                width: 100%;
+                padding: 40px 20px;
+                text-align: center;
+            }
+
+            .profile-image {
+                width: clamp(150px, 30vw, 260px);
+                height: clamp(150px, 30vw, 259px);
+                border-radius: 50%;
+                background: url('./assets/selfie.png') 100% / cover no-repeat;
+                margin: 0 auto 20px;
+                position: relative;
+                z-index: 2;
+                -webkit-mask-image: linear-gradient(180deg, black 60%, transparent 95%);
+                mask-image: linear-gradient(180deg, black 60%, transparent 95%);
+            }
+
+            .name-bg {
+                position: absolute;
+                top: 75%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-family: IBM Plex Mono;
+                font-weight: 700;
+                font-size: clamp(30px, 12vw, 200px);
+                color: transparent;
+                -webkit-text-stroke: 1px rgb(255 255 255);
+                opacity: 0.05;
+                white-space: nowrap;
+                pointer-events: none;
+                z-index: 0;
+            }
+
+            .name {
+                font-family: IBM Plex Mono;
+                font-weight: 700;
+                font-size: clamp(24px, 7vw, 64.72px);
+                color: white;
+                margin-bottom: 20px;
+                position: relative;
+                z-index: 2;
+            }
+
+            .info-section {
+                max-width: 926px;
+                margin: 40px auto;
+                padding: 0 20px;
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 30px;
+                justify-items: center;
+            }
+
+            @media (min-width: 768px) {
+                .info-section {
+                    grid-template-columns: 250px 1fr;
+                    gap: 82px;
+                    justify-items: start;
+                }
+            }
+
+            .contact-info {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            @media (min-width: 768px) {
+                .contact-info {
+                    align-items: flex-end;
+                }
+            }
+
+            .contact-item {
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                word-break: break-word;
+            }
+
+            .contact-icon {
+                width: 24px;
+                height: 24px;
+                flex-shrink: 0;
+            }
+
+            .contact-text {
+                font-family: IBM Plex Mono;
+                font-weight: 700;
+                white-space: nowrap;
+                font-size: clamp(12px, 2.8vw, 16.95px);
+                color: white;
+            }
+
+            .bio {
+                font-family: Inter;
+                font-weight: 700;
+                font-size: clamp(13px, 2.8vw, 16.95px);
+                color: white;
+                line-height: 1.6;
+                text-align: left;
+            }
+
+            .content-section {
+                max-width: 594px;
+                margin: 60px auto;
+                padding: 0 20px;
+            }
+
+            .section-title {
+                font-family: IBM Plex Mono;
+                font-weight: 700;
+                font-size: clamp(15px, 3.5vw, 19.03px);
+                background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(153, 153, 153, 0) 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+            .section-content {
+                font-family: Inter;
+                font-weight: 700;
+                font-size: clamp(13px, 2.8vw, 16.95px);
+                color: white;
+                line-height: 1.6;
+                text-align: center;
+            }
+
+            .languages-section {
+                max-width: 600px;
+                margin: 60px auto;
+                padding: 0 20px;
+            }
+
+            .language-bars {
+                display: flex;
+                gap: 20px;
+                justify-content: center;
+                align-items: flex-end;
+                margin-top: 30px;
+                flex-wrap: wrap;
+            }
+
+            @media (max-width: 480px) {
+                .language-bars {
+                    gap: 15px;
+                }
+            }
+
+            .language-bar {
+                text-align: center;
+                min-width: 80px;
+            }
+
+            .language-name {
+                font-family: IBM Plex Mono;
+                font-weight: 700;
+                font-size: clamp(13px, 3vw, 19.03px);
+                color: white;
+                margin-bottom: 10px;
+            }
+
+            .bar-container {
+                width: clamp(70px, 18vw, 122px);
+                margin: 0 auto 10px;
+            }
+
+            .bar {
+                width: 100%;
+                background: rgba(47, 34, 30, 1);
+                border-radius: 9px;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .bar.primary {
+                height: clamp(120px, 28vw, 244px);
+                background: rgba(174, 101, 76, 1);
+            }
+
+            .bar.secondary {
+                height: clamp(85px, 20vw, 175px);
+            }
+
+            .language-percent {
+                font-family: Inter;
+                font-weight: 700;
+                font-size: clamp(18px, 4vw, 31.45px);
+                color: white;
+            }
+
+            .language-percent.muted {
+                font-size: clamp(16px, 3.5vw, 24px);
+                color: rgba(230, 206, 199, 1);
+            }
+
+            .skills-section {
+                max-width: 1058px;
+                margin: 80px auto;
+                padding: 0 20px;
+            }
+
+            @media (max-width: 768px) {
+                .skills-section {
+                    margin: 60px auto;
+                }
+            }
+
+            .skills-list {
+                display: flex;
+                flex-direction: column;
+                gap: 30px;
+                margin-top: 40px;
+            }
+
+            @media (max-width: 768px) {
+                .skills-list {
+                    gap: 25px;
+                }
+            }
+
+            .skill-item {
+                display: grid;
+                grid-template-columns: 200px 1fr 80px;
+                align-items: center;
+                gap: 15px;
+            }
+
+            @media (max-width: 768px) {
+                .skill-item {
+                    grid-template-columns: 1fr;
+                    gap: 8px;
+                }
+            }
+
+            .skill-name {
+                font-family: Inter;
+                font-weight: 700;
+                font-size: clamp(15px, 3.5vw, 24px);
+                color: white;
+            }
+
+            .skill-bar-wrapper {
+                width: 100%;
+            }
+
+            .skill-bar-bg {
+                height: 14px;
+                background: rgba(255, 255, 255, 0.04);
+                border-radius: 67px;
+                overflow: hidden;
+                position: relative;
+            }
+
+            .skill-bar-fill {
+                height: 100%;
+                border-radius: 58px;
+                transition: width 0.5s ease;
+            }
+
+            .skill-bar-fill.primary {
+                background: rgba(174, 101, 76, 1);
+            }
+
+            .skill-bar-fill.secondary {
+                background: rgba(230, 206, 199, 1);
+            }
+
+            .skill-percent {
+                font-family: Inter;
+                font-weight: 700;
+                font-size: clamp(15px, 3.5vw, 24px);
+                text-align: right;
+            }
+
+            @media (max-width: 768px) {
+                .skill-percent {
+                    text-align: left;
+                }
+            }
+
+            .skill-percent.primary {
+                color: rgba(230, 206, 199, 1);
+            }
+
+            .skill-percent.secondary {
+                color: rgba(230, 206, 199, 1);
+            }
+
+            .print-section {
+                display: none;
+            }
+
+            @media print {
+                body {
+                    background: white;
+                }
+
+                .container {
+                    background: white;
+                }
+
+                .timeline-controls,
+                .carousel-gradient-left,
+                .carousel-gradient-right,
+                .tabs,
+                .tab-indicator {
+                    display: none !important;
+                }
+
+                .hero-section {
+                    display: none;
+                }
+
+                .print-section {
+                    display: block;
+                    max-width: 100%;
+                    margin: 20px auto;
+                    padding: 0 20px;
+                }
+
+                .print-category {
+                    page-break-inside: avoid;
+                    margin-bottom: 30px;
+                }
+
+                .print-category-title {
+                    font-family: IBM Plex Mono;
+                    font-weight: 700;
+                    font-size: 20px;
+                    color: black;
+                    margin-bottom: 15px;
+                    text-align: center;
+                    border-bottom: 2px solid black;
+                    padding-bottom: 5px;
+                }
+
+                .print-item {
+                    margin-bottom: 20px;
+                    padding: 10px;
+                    border: 1px solid #333;
+                    page-break-inside: avoid;
+                }
+
+                .job-title,
+                .company,
+                .location,
+                .name,
+                .contact-text,
+                .bio,
+                .section-content,
+                .language-name,
+                .language-percent,
+                .skill-name,
+                .skill-percent {
+                    color: black !important;
+                }
+
+                .tech-stack {
+                    color: #333 !important;
+                }
+
+                .language-percent.muted {
+                    color: #333 !important;
+                }
+
+                .section-title {
+                    color: black !important;
+                    -webkit-text-fill-color: black !important;
+                    background: black;
+                    -webkit-background-clip: text;
+                }
+
+                .info-section {
+                    justify-items: center;
+                }
+
+                .bar.primary {
+                    background: black !important;
+                }
+
+                .bar.secondary {
+                    background: #666 !important;
+                }
+
+                .skill-bar-fill.primary {
+                    background: black !important;
+                }
+
+                .skill-bar-fill.secondary {
+                    background: #666 !important;
+                }
+
+                .skill-bar-bg {
+                    background: #e0e0e0 !important;
+                    border: 1px solid #ccc;
+                }
+
+                .profile-section,
+                .info-section,
+                .content-section,
+                .languages-section,
+                .skills-section {
+                    page-break-inside: avoid;
+                }
+
+                .name-bg {
+                    display: none;
+                }
+
+                .logo {
+                    color: black !important;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="logo">~/portfolio/</div>
+            
+            <!-- profile section -->
+            <div class="profile-section">
+                <div class="name-bg">VladimirVarbanov</div>
+                <div class="profile-image"></div>
+                <div class="name">Vladimir Varbanov</div>
+            </div>
+            
+            <!-- info section -->
+            <div class="info-section">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <img class="contact-icon" src="./assets/phone.svg" alt="Phone" />
+                        <div class="contact-text">+359 898 666692</div>
+                    </div>
+                    <div class="contact-item">
+                        <img class="contact-icon" src="./assets/location.svg" alt="Location" />
+                        <div class="contact-text">Sofia, Bulgaria</div>
+                    </div>
+                    <div class="contact-item">
+                        <img class="contact-icon" src="./assets/email.svg" alt="Email" />
+                        <div class="contact-text">vlado@vlado1.com</div>
+                    </div>
+                    <div class="contact-item">
+                        <img class="contact-icon" src="./assets/code.svg" alt="GitHub" />
+                        <div class="contact-text">github.com/vladyn</div>
+                    </div>
+                    <div class="contact-item">
+                        <img class="contact-icon" src="./assets/linkedin.svg" alt="LinkedIn" />
+                        <div class="contact-text">linkedin.com/in/vladyn</div>
+                    </div>
+                </div>
+                
+                <div class="bio">
+                    Proactive and creative Web Developer with over 25 years of experience in the development and implementation of web application;<br /><br />Highly committed, self-starter willing and able to take ownership and assume responsibility. Excellent communication/negotiation skills;<br />experienced in dynamic/complex environments; work well individually or as part of a team, irrespective of team size.<br /><br />Enthusiastic, passionate, and quick learner with the desire to broaden knowledge and expand skills.
+                </div>
+            </div>
+            
+            <!-- hero section with timeline (hidden on print) -->
+            <div class="hero-section">
+                <div class="tabs">
+                    <span class="tab active" data-tab="experience">EXPERIENCE</span>
+                    <div class="tab-indicator"></div>
+                    <span class="tab" data-tab="education">EDUCATION</span>
+                </div>
+                <div class="carousel-wrapper">
+                    <div class="carousel-track" id="carouselTrack"></div>
+                    
+                    <div class="timeline-controls">
+                        <button class="nav-button prev" aria-label="Previous"></button>
+                        <div class="timeline-line">
+                            <div class="timeline-dots" id="timelineDots"></div>
+                        </div>
+                        <button class="nav-button next" aria-label="Next"></button>
+                    </div>
+                    
+                    <div class="carousel-gradient-left"></div>
+                    <div class="carousel-gradient-right"></div>
+                </div>
+            </div>
+            
+            <!-- print section (shown only on print) -->
+            <div class="print-section">
+                <div class="print-category">
+                    <div class="print-category-title">EXPERIENCE</div>
+                    <div id="printExperience"></div>
+                </div>
+                <div class="print-category">
+                    <div class="print-category-title">EDUCATION</div>
+                    <div id="printEducation"></div>
+                </div>
+            </div>
+            
+            <!-- qualifications section -->
+            <div class="content-section">
+                <div class="section-title">QUALIFICATIONS</div>
+                <div class="section-content">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in lacus aliquam, cursus diam in, porta arcu. Vestibulum hendrerit sem erat, in consectetur velit pulvinar nec. Sed pharetra purus sed turpis elementum, ullamcorper tincidunt tortor tincidunt. Pellentesque malesuada eleifend metus, vel consectetur orci ullamcorper convallis. Ut maximus egestas nibh nec vestibulum. Mauris ut tempus felis. Fusce dapibus condimentum feugiat. Praesent auctor cursus semper. Aliquam consectetur odio eu dui laoreet, vitae hendrerit risus dictum. Vestibulum rutrum purus in tellus cursus, non tempus lacus hendrerit. Nunc aliquet sit amet sem vitae congue.
+                </div>
+            </div>
+            
+            <!-- languages section -->
+            <div class="languages-section">
+                <div class="section-title">LANGUAGES</div>
+                <div class="language-bars">
+                    <div class="language-bar">
+                        <div class="language-name">English</div>
+                        <div class="bar-container">
+                            <div class="bar primary"></div>
+                        </div>
+                        <div class="language-percent">100%</div>
+                    </div>
+                    <div class="language-bar">
+                        <div class="language-name">French</div>
+                        <div class="bar-container">
+                            <div class="bar secondary"></div>
+                        </div>
+                        <div class="language-percent muted">50%</div>
+                    </div>
+                    <div class="language-bar">
+                        <div class="language-name">Russian</div>
+                        <div class="bar-container">
+                            <div class="bar secondary"></div>
+                        </div>
+                        <div class="language-percent muted">50%</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- skills section -->
+            <div class="skills-section">
+                <div class="section-title">SKILLS</div>
+                <div class="skills-list">
+                    <div class="skill-item">
+                        <div class="skill-name">JavaScript</div>
+                        <div class="skill-bar-wrapper">
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill primary" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-percent primary">100%</div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">HTML & CSS</div>
+                        <div class="skill-bar-wrapper">
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill primary" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-percent primary">100%</div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">Accessibility</div>
+                        <div class="skill-bar-wrapper">
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill primary" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-percent primary">100%</div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">ReactJS</div>
+                        <div class="skill-bar-wrapper">
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill primary" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-percent primary">90%</div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">VueJS</div>
+                        <div class="skill-bar-wrapper">
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill primary" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-percent primary">80%</div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">Front-End</div>
+                        <div class="skill-bar-wrapper">
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill primary" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-percent primary">100%</div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">GraphQL</div>
+                        <div class="skill-bar-wrapper">
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill primary" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-percent primary">80%</div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">AngularJS</div>
+                        <div class="skill-bar-wrapper">
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill primary" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-percent primary">100%</div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">User Experience</div>
+                        <div class="skill-bar-wrapper">
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill secondary" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-percent secondary">100%</div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">Search Engine Optimization</div>
+                        <div class="skill-bar-wrapper">
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill secondary" style="width: 60%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-percent secondary">60%</div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">UI Design</div>
+                        <div class="skill-bar-wrapper">
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill secondary" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-percent secondary">100%</div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">User Interface</div>
+                        <div class="skill-bar-wrapper">
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill secondary" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-percent secondary">100%</div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">Web Design</div>
+                        <div class="skill-bar-wrapper">
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill secondary" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-percent secondary">100%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            const carouselTrack = document.getElementById('carouselTrack');
+            const timelineDotsContainer = document.getElementById('timelineDots');
+            const tabs = document.querySelectorAll('.tab');
+            const prevButton = document.querySelector('.nav-button.prev');
+            const nextButton = document.querySelector('.nav-button.next');
+            
+            let currentIndex = 0;
+            let currentTab = 'experience';
+            
+            const experienceData = [
+                {
+                    title: "Senior Frontend Developer",
+                    company: "@ Puzzel | Solving Customer Interactions",
+                    location: "Sofia, Bulgaria",
+                    tech: "Web apps with React JS, Preact, HyperApp, Aurelia, HTML5, CSS3, SASS, WCAG accessibility implementation, CSS-in-JS"
+                },
+                {
+                    title: "Frontend Developer",
+                    company: "@ Tech Company",
+                    location: "Sofia, Bulgaria",
+                    tech: "Building responsive web applications with modern frameworks and tools"
+                },
+                {
+                    title: "Junior Developer",
+                    company: "@ StartUp Inc",
+                    location: "Sofia, Bulgaria",
+                    tech: "Learning and implementing web development best practices"
+                }
+            ];
+            
+            const educationData = [
+                {
+                    title: "Bachelor of Computer Science",
+                    company: "@ Sofia University",
+                    location: "Sofia, Bulgaria",
+                    tech: "Computer Science, Software Engineering, Web Development, Database Design"
+                },
+                {
+                    title: "High School Diploma",
+                    company: "@ Technical High School",
+                    location: "Sofia, Bulgaria",
+                    tech: "Mathematics, Physics, Computer Programming"
+                }
+            ];
+            
+            function getCurrentData() {
+                return currentTab === 'experience' ? experienceData : educationData;
+            }
+            
+            function renderTimeline() {
+                const data = getCurrentData();
+                
+                carouselTrack.innerHTML = data.map((item, index) => `
+                    <div class="carousel-item ${index === currentIndex ? 'active' : ''}">
+                        <div class="job-title">${item.title}</div>
+                        <div class="company">${item.company}</div>
+                        <div class="location">${item.location}</div>
+                        <div class="tech-stack">${item.tech}</div>
+                    </div>
+                `).join('');
+
+                timelineDotsContainer.innerHTML = data.map((_, index) => 
+                    `<div class="timeline-dot ${index === currentIndex ? 'active' : ''}" data-index="${index}"></div>`
+                ).join('');
+
+                updatePosition();
+                updateButtonStates();
+
+                document.querySelectorAll('.timeline-dot').forEach(dot => {
+                    dot.addEventListener('click', () => {
+                        currentIndex = parseInt(dot.getAttribute('data-index'));
+                        renderTimeline();
+                    });
+                });
+            }
+            
+            function renderPrintSections() {
+                const printExperience = document.getElementById('printExperience');
+                const printEducation = document.getElementById('printEducation');
+                
+                printExperience.innerHTML = experienceData.map(item => `
+                    <div class="print-item">
+                        <div class="job-title">${item.title}</div>
+                        <div class="company">${item.company}</div>
+                        <div class="location">${item.location}</div>
+                        <div class="tech-stack">${item.tech}</div>
+                    </div>
+                `).join('');
+                
+                printEducation.innerHTML = educationData.map(item => `
+                    <div class="print-item">
+                        <div class="job-title">${item.title}</div>
+                        <div class="company">${item.company}</div>
+                        <div class="location">${item.location}</div>
+                        <div class="tech-stack">${item.tech}</div>
+                    </div>
+                `).join('');
+            }
+            
+            function updatePosition() {
+                const items = carouselTrack.querySelectorAll('.carousel-item');
+                if (items.length === 0) return;
+
+                const isMobile = window.innerWidth <= 768;
+                const item = items[0];
+                const itemWidth = item.offsetWidth;
+                const gap = isMobile ? 40 : 100;
+
+                let offset;
+
+                if (isMobile) {
+                    const trackWidth = carouselTrack.scrollWidth;
+                    const containerWidth = carouselTrack.parentElement.offsetWidth;
+                    const totalOffset = currentIndex * (itemWidth + gap);
+                    
+                    offset = (containerWidth / 2) - (itemWidth / 2) - totalOffset;
+                } else {
+                    const totalWidth = itemWidth + gap;
+                    offset = -(currentIndex * totalWidth);
+                    offset += (carouselTrack.parentElement.offsetWidth / 2) - (itemWidth / 2);
+                }
+
+                carouselTrack.style.transform = `translateX(${offset}px)`;
+            }
+            
+            function updateButtonStates() {
+                const data = getCurrentData();
+                const atStart = currentIndex === 0;
+                const atEnd = currentIndex === data.length - 1;
+
+                prevButton.style.opacity = atStart ? '0.3' : '1';
+                prevButton.style.cursor = atStart ? 'default' : 'pointer';
+                prevButton.disabled = atStart;
+
+                nextButton.style.opacity = atEnd ? '0.3' : '1';
+                nextButton.style.cursor = atEnd ? 'default' : 'pointer';
+                nextButton.disabled = atEnd;
+
+                if (atStart) {
+                    prevButton.classList.add('disabled');
+                } else {
+                    prevButton.classList.remove('disabled');
+                }
+
+                if (atEnd) {
+                    nextButton.classList.add('disabled');
+                } else {
+                    nextButton.classList.remove('disabled');
+                }
+            }
+
+            function navigate(direction) {
+                const data = getCurrentData();
+                const prevIndex = currentIndex;
+
+                if (direction === 'next' && currentIndex < data.length - 1) {
+                    currentIndex++;
+                } else if (direction === 'prev' && currentIndex > 0) {
+                    currentIndex--;
+                }
+
+                if (prevIndex !== currentIndex) {
+                    renderTimeline();
+                }
+            }
+            
+            prevButton.addEventListener('click', () => navigate('prev'));
+            nextButton.addEventListener('click', () => navigate('next'));
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    currentTab = tab.getAttribute('data-tab');
+                    currentIndex = 0;
+                    renderTimeline();
+                });
+            });
+            
+            window.addEventListener('resize', updatePosition);
+            
+            window.addEventListener('resize', () => {
+                updatePosition();
+                updateButtonStates();
+            });
+
+            renderTimeline();
+            renderPrintSections();
+        </script>
+    </body>
+</html>
