@@ -6,5 +6,34 @@
   "repository": "git@github.com:vladyn/my-cv.git",
   "author": "Vladimir Varbanov <vlado@vlado1.com>",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "scripts": {
+    "dev": "live-server --port=3000 --host=localhost --open=/ --cors --verbose",
+    "build": "yarn clean && yarn minify:css && yarn minify:js && yarn minify:html",
+    "clean": "rimraf dist && mkdir dist",
+    "copy:assets": "cp -r assets dist/ 2>/dev/null || xcopy assets dist\\assets\\ /E /I /Y",
+    "minify:css": "cleancss -o dist/styles.min.css styles.css",
+    "minify:js": "terser script.js -o dist/script.min.js --compress --mangle",
+    "minify:html": "html-minifier --collapse-whitespace --remove-comments --minify-css --minify-js --input index.html --output dist/index.html && yarn copy:assets",
+    "serve": "live-server dist --port=8080 --host=localhost --cors",
+    "preview": "yarn build && yarn serve",
+    "watch": "yarn dev",
+    "format": "prettier --write \"*.{html,css,js}\"",
+    "lint:css": "stylelint \"*.css\"",
+    "validate:html": "html-validate index.html",
+    "deploy:gh-pages": "gh-pages -d dist",
+    "start": "yarn dev"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "clean-css-cli": "^5.6.3",
+    "terser": "^5.26.0",
+    "html-minifier": "^4.0.0",
+    "rimraf": "^5.0.5",
+    "prettier": "^3.1.1",
+    "stylelint": "^16.0.0",
+    "stylelint-config-standard": "^36.0.0",
+    "html-validate": "^8.8.0",
+    "gh-pages": "^6.1.0"
+  }
 }
