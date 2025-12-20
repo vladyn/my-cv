@@ -1,0 +1,10 @@
+{
+  "name": "my-cv",
+  "version": "1.0.0",
+  "description": "My CV ",
+  "main": "index.js",
+  "repository": "git@github.com:vladyn/my-cv.git",
+  "author": "Vladimir Varbanov <vlado@vlado1.com>",
+  "license": "MIT",
+  "private": false
+}
