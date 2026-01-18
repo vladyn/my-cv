@@ -5,7 +5,6 @@ customElements.define("skill-item", class extends HTMLElement {
     constructor() {
         super();
         const skillsTemplate = document.getElementById("skill-item-template");
-        console.log("skillsTemplate:", skillsTemplate);
         const shadow = this.attachShadow({ mode: "open" });
         const templateContent = skillsTemplate.content;
         shadow.appendChild(document.importNode(templateContent, true));
@@ -14,7 +13,7 @@ customElements.define("skill-item", class extends HTMLElement {
 
 skillItemsList.forEach((skill) => {
     const skillItemElement = document.createElement("skill-item");
-    
+
     const titleSlot = document.createElement("span");
     titleSlot.setAttribute("slot", "title");
     titleSlot.textContent = skill.title;
@@ -23,8 +22,10 @@ skillItemsList.forEach((skill) => {
     percentSlot.setAttribute("slot", "percent");
     percentSlot.textContent = skill.level;
 
+    const skillBar = skillItemElement.shadowRoot.querySelector(".skill-bar-fill");
+    skillBar.style.width = skill.level;
+
     skillItemElement.appendChild(percentSlot);
-    
     skillItemElement.appendChild(titleSlot);
     skillBarWrapper.appendChild(skillItemElement);
 });
