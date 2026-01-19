@@ -1,3 +1,5 @@
+import { experienceData, educationData } from "./mock-data/data.js";
+
 const carouselTrack = document.getElementById("carouselTrack");
 const timelineDotsContainer = document.getElementById("timelineDots");
 const tabs = document.querySelectorAll(".tab");
@@ -6,42 +8,6 @@ const nextButton = document.querySelector(".nav-button.next");
 
 let currentIndex = 0;
 let currentTab = "experience";
-
-const experienceData = [
-    {
-        title: "Senior Frontend Developer",
-        company: "@ Puzzel | Solving Customer Interactions",
-        location: "Sofia, Bulgaria",
-        tech: "Web apps with React JS, Preact, HyperApp, Aurelia, HTML5, CSS3, SASS, WCAG accessibility implementation, CSS-in-JS",
-    },
-    {
-        title: "Frontend Developer",
-        company: "@ Tech Company",
-        location: "Sofia, Bulgaria",
-        tech: "Building responsive web applications with modern frameworks and tools",
-    },
-    {
-        title: "Junior Developer",
-        company: "@ StartUp Inc",
-        location: "Sofia, Bulgaria",
-        tech: "Learning and implementing web development best practices",
-    },
-];
-
-const educationData = [
-    {
-        title: "Bachelor of Computer Science",
-        company: "@ Sofia University",
-        location: "Sofia, Bulgaria",
-        tech: "Computer Science, Software Engineering, Web Development, Database Design",
-    },
-    {
-        title: "High School Diploma",
-        company: "@ Technical High School",
-        location: "Sofia, Bulgaria",
-        tech: "Mathematics, Physics, Computer Programming",
-    },
-];
 
 function getCurrentData() {
     return currentTab === "experience" ? experienceData : educationData;
