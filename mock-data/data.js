@@ -35,6 +35,7 @@ export const experienceData = [
         title: "Web Development and UI Design Consultant",
         company: "PADDYPOWER (Power Ledger Limited Ltd.)",
         business: "Sports, Betting and Gaming company",
+        location: "Sofia, Bulgaria",
         period: "May 2013 - May 2014",
         tech: "AngularJS, HTML5, CSS3, SASS, Foundation, ReactJS, Redux",
     },
@@ -42,6 +43,7 @@ export const experienceData = [
         title: "Web Developer and UI Designer",
         company: "LearnDirect Ltd (TechHuddle Ltd)",
         business: "e-learning company",
+        location: "Sofia, Bulgaria",
         period: "May 2013 - May 2014",
         tech: "HTML5, CSS3, SASS, LESS, Foundation, Photoshop, Illustrator, Magento, WordPress, jQuery. Building the front-end of the company applications",
     },
@@ -50,6 +52,7 @@ export const experienceData = [
         company: "self employed",
         business: "Freelance web development and design services",
         period: "Jan 2011 - Nov 2013",
+        location: "Sofia, Bulgaria",
         tech: "Managing Web Projects. Negotiation, presentation, and consultant services for web-related projects and technologies. Web projects audit. Designing and building client corporate websites",
     },
     {
@@ -65,7 +68,7 @@ export const experienceData = [
         title: "Lead UI and UX Designer",
         company: "Skillado",
         business: "SaaS company",
-        location: "Ramat Gan, Israel",
+        location: "Sofia, Bulgaria",
         period: "Mar 2010 - Mar 2011",
         tech: "Adobe Photoshop and Illustrator, HTML5, CSS3, Flash",
     },
@@ -98,6 +101,7 @@ export const experienceData = [
         company: "FAVO AG",
         url: "https://favo-bg.com/bg",
         business: "Furniture manufacturer",
+        location: "Svishtov, Bulgaria",
         period: "Aug 2000 - Jun 2001",
         tech: "Adobe Photoshop, Macromedia Flash, Freehand, Html4, CSS2, JavaScript, Dreamweaver",
     },
@@ -105,6 +109,7 @@ export const experienceData = [
         title: "Web Designer and Web Developer",
         company: "AlekoTV",
         business: "Cable TV operator",
+        location: "Svishtov, Bulgaria",
         period: "Aug 1999 - Jun 2000",
         tech: "Adobe Photoshop, Macromedia Flash, Freehand, Html4, CSS2, JavaScript, Dreamweaver",
     },
@@ -112,17 +117,29 @@ export const experienceData = [
 
 export const educationData = [
     {
-        title: "Bachelor of Computer Science",
-        company: "@ Sofia University",
-        location: "Sofia, Bulgaria",
+        title: "Masters of Marketing and Advertising",
+        company: "Academy of Economics D.A. Tsenov",
+        location: "Svishtov, Bulgaria",
         tech: "Computer Science, Software Engineering, Web Development, Database Design",
     },
     {
-        title: "High School Diploma",
-        company: "@ Technical High School",
-        location: "Sofia, Bulgaria",
-        tech: "Mathematics, Physics, Computer Programming",
+        title: "Web Development and Internet Technologies",
+        company: "Various online courses, workshops, and self-study",
+        location: "Sofia, Bulgaria & Svishtov, Bulgaria",
+        tech: "Internet technologies from 1999; Web publishing tools from 2000; Accessible websites from 2006;",
     },
+    {
+        title: " Graphic design, typography and color theory",
+        company: "Various books",
+        location: "Sofia, Bulgaria",
+        tech: "'Grids' & 'Type' For the internet and other digital media - Veruschka Götz; 'Colour' - Edith Anderson Feisner; 'Creative Photoshop' - Derek Lea; Flash Web Design - Hillman Curtis;",
+    },
+    {
+        title: "Certificates",
+        company: "Various online courses and certifications",
+        location: "Online and in-person",
+        tech: "Illustrator CS4 2006 One-on-One: Fundamentals; Illustrator CS4 2006 One-on-One: Advanced; Photoshop CS5 2007 One-on-One: Fundamentals; Photoshop CS5 2006 One-on-One: Advanced; Internet technologies",
+    }
 ];
 
 export const skillItemsList = [
@@ -132,7 +149,7 @@ export const skillItemsList = [
     },
     {
         title: "TypeScript",
-        level: "85%",
+        level: "55%",
     },
     {
         title: "Vue.js",
@@ -144,11 +161,11 @@ export const skillItemsList = [
     },
     {
         title: "Aurelia",
-        level: "70%",
+        level: "90%",
     },
     {
         title: "React",
-        level: "85%",
+        level: "75%",
     },
     {
         title: "Redux",
@@ -156,15 +173,15 @@ export const skillItemsList = [
     },
     {
         title: "HTML5",
-        level: "90%",
+        level: "99%",
     },
     {
-        title: "HTML5 & CSS3",
-        level: "90%",
+        title: "CSS3",
+        level: "980%",
     },
     {
         title: "SASS & LESS",
-        level: "85%",
+        level: "95%",
     },
     {
         title: "Webpack & Babel",
@@ -172,7 +189,7 @@ export const skillItemsList = [
     },
     {
         title: "Git & GitHub",
-        level: "85%",
+        level: "95%",
     },
     {
         title: "RESTful APIs",
